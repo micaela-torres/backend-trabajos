@@ -1,0 +1,107 @@
+const { promises: fs } = require('fs')
+
+class Container {
+    constructor(route) {
+        this.route = route
+    }
+    async save(object) {
+        const productos = await this.getAll()
+        const index = productos.map(element => element.id).indexOf(object.id)
+        if (index >= 0) {
+            const oldProduct = productos[index]
+            object.id = productos[index].id
+            productos[index] = object
+            try {
+                await fs.writeFile(this.route, JSON.stringify(productos, null, 2))
+                console.log("Su producto se guardo con exito")
+                return [object, oldProduct]
+            } catch (error) {
+                console.error("Error")
+                console.error(error)
+                return []
+            }
+        }
+        else {
+            console.log("Recurso no encontrado")
+            return []
+        }
+    }
+    async saveProduct(object) {
+        const products = await this.getAll()
+        object.id = parseInt(object.id)
+        object.id = this.checkId(object, products)
+        object.price = parseInt(object.price)
+        try {
+            console.log(`El siguiente producto sera guardado : \n${JSON.stringify(object)}`)
+            products.push(object)
+            await fs.writeFile(this.route, JSON.stringify(products, null, 2))
+            console.log("Se guardo con exito")
+            return object
+        } catch (error) {
+            console.error("Error")
+            console.error(error)
+        }
+    }
+    async getById(id) {
+        const products = await this.getAll()
+        if (!this.checkLength(products)) {
+            return
+        }
+        let product = products.find(element => element.id == id)
+        return product ? product : null
+    }
+    async getAll() {
+        try {
+            let products = await fs.readFile(this.route, 'utf-8')
+            return JSON.parse(products)
+        } catch (error) {
+            console.error("Error")
+            console.error(error)
+            return []
+        }
+    }
+    async deleteById(id) {
+        console.log(id)
+        const products = await this.getAll()
+        if (!this.checkLength(products)) {
+            return
+        }
+        const product = products.find(element => element.id == id)
+        console.log(product)
+        const newProducts = products.filter(element => element != product)
+        try {
+            console.log(`El producto fue eliminado : \n${JSON.stringify(product)}`)
+            await fs.writeFile(this.route, JSON.stringify(newProducts, null, 2))
+            console.log(`Cambios guardados`)
+            return product
+        } catch (error) {
+            console.error("Error")
+            console.error(error)
+        }
+    }
+    checkLength(arr) {
+        if (arr.length === 0) {
+            console.error("Sin productos")
+            return false
+        }
+        return true
+    }
+
+    checkId(product, arr) {
+        arr.forEach(element => {
+            if (element.id == product.id) {
+                console.warn("El id del producto ya existe, se le asignara uno id nuevo.")
+                return this.newId(product, arr)
+            }
+        });
+        return product.id
+    }
+    newId(product, arr) {
+        arr.sort((a, b) => { return a - b })
+        product.id = parseInt(arr[arr.length - 1].id) + 1
+        console.log(`Nuevo id del producto : ${product.id}`)
+        return product.id
+    }
+}
+
+module.exports = Container;

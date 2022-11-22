@@ -1,0 +1,20 @@
+[
+    {
+        "titulo": "Shampoo baby",
+        "precio": "117",
+        "imagen": "https://firebasestorage.googleapis.com/v0/b/primerapractica-22fb2.appspot.com/o/1441.jpg?alt=media&token=3a069684-5280-4608-94a2-fc4276573e30",
+        "id": 0
+    },
+    {
+        "titulo": "Toallitas húmedas",
+        "precio": "540",
+        "imagen": "https://firebasestorage.googleapis.com/v0/b/primerapractica-22fb2.appspot.com/o/1224.jpg?alt=media&token=e94d5a4c-3cbc-4d78-886a-c9dd9de9b1df",
+        "id": 1
+    },
+    {
+        "titulo": "Shampoo baby",
+        "precio": "117",
+        "imagen": "https://firebasestorage.googleapis.com/v0/b/primerapractica-22fb2.appspot.com/o/1441.jpg?alt=media&token=3a069684-5280-4608-94a2-fc4276573e30",
+        "id": 2
+    }
+]
