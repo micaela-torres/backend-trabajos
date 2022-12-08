@@ -1,0 +1,12 @@
+[
+    {
+        "date": "2022-12-07",
+        "mail": "prueba@p.com",
+        "text": "prueba numero 1"
+    },
+    {
+        "date": "2022-12-08",
+        "mail": "p@p.com",
+        "text": "gsfdfdsgkj"
+    },
+]
