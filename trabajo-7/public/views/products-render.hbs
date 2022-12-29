@@ -1,0 +1,21 @@
+{{#if products.length}}
+
+<div class="table-responsive">
+    <table class="table table-light">
+        <tr>
+            <th class="text-center text-dark">ID</th>
+            <th class="text-center text-dark">Nombre</th>
+            <th class="text-center text-dark">Precio</th>
+        </tr>
+        {{#each products}}
+        <tr>
+            <td class="text-center text-dark">#{{this.id}}</td>
+            <td class="text-center text-dark">{{this.name}}</td>
+            <td class="text-center text-dark">${{this.price}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+{{else}}
+<h3 class="alert alert-danger">No hay productos cargados</h1>
+    {{/if}}
